@@ -3,7 +3,7 @@ require.register('doesnt-exist', function(module, exports, require){
   module.exports = 'this shouldnt work';
 });
 
-require.register('foo', function(module, exports, require){
+require.register('foo/index.js', function(module, exports, require){
   module.exports = require('bar');
 });
 

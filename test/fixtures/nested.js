@@ -1,12 +1,12 @@
 
-require.register('foo', function(module, exports, require){
+require.register('foo/index.js', function(module, exports, require){
   module.exports = {
     bar: require('./bar'),
     baz: require('./bar/baz')
   }
 });
 
-require.register('foo/bar', function(module, exports, require){
+require.register('foo/bar/index.js', function(module, exports, require){
   module.exports = require('./baz');
 });
 

@@ -17,6 +17,10 @@ function eval(js, ctx) {
   return vm.runInNewContext(r + js + '\n', ctx);
 }
 
+function normalize(curr, path) {
+  return eval('require.normalize("' + curr + '", "' + path + '")', {});
+}
+
 describe('require.register(name, fn)', function(){
   it('should define a module', function(){
     var js = fixture('define.js');
@@ -35,6 +39,12 @@ describe('require.register(name, fn)', function(){
     var ret = eval(js + 'require("foo")', {});
     ret.bar.should.equal('baz');
     ret.baz.should.equal('baz');
+  })
+
+  it('should support relative require()s', function(){
+    var js = fixture('relative.js');
+    var ret = eval(js + 'require("touch")', {});
+    ret.should.equal('touch');
   })
 
   it('should support index.js', function(){
@@ -68,6 +78,34 @@ describe('require.register(name, fn)', function(){
       err.message.should.equal('failed to require "doesnt-exist" from "foo/deps/bar"');
       done();
     }
+  })
+})
+
+describe('require.normalize(curr, path)', function(){
+  it('should resolve foo', function(){
+    normalize('touch/dispatcher.js', 'foo')
+      .should.equal('foo');
+  })
+
+  it('should resolve ./foo', function(){
+    normalize('touch/dispatcher.js', './touch')
+      .should.equal('touch/touch');
+  })
+
+  it('should resolve ./foo when the parent is index.js', function(){
+    normalize('touch/index.js', './dispatcher')
+      .should.equal('touch/dispatcher');
+  })
+
+  it('should resolve ..', function(){
+    normalize('touch/dispatcher.js', '..')
+      .should.equal('touch');
+
+    normalize('touch/dispatcher/foo.js', '..')
+      .should.equal('touch/dispatcher');
+
+    normalize('touch/dispatcher/foo.js', '../../')
+      .should.equal('touch');
   })
 })
 
