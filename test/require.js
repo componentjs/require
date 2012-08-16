@@ -83,28 +83,20 @@ describe('require.register(name, fn)', function(){
 
 describe('require.normalize(curr, path)', function(){
   it('should resolve foo', function(){
-    normalize('touch/dispatcher.js', 'foo')
+    normalize('touch/dispatcher', 'foo')
       .should.equal('foo');
   })
 
   it('should resolve ./foo', function(){
-    normalize('touch/dispatcher.js', './touch')
-      .should.equal('touch/touch');
-  })
-
-  it('should resolve ./foo when the parent is index.js', function(){
-    normalize('touch/index.js', './dispatcher')
-      .should.equal('touch/dispatcher');
+    normalize('touch/dispatcher', './touch')
+      .should.equal('touch/dispatcher/touch');
   })
 
   it('should resolve ..', function(){
-    normalize('touch/dispatcher.js', '..')
+    normalize('touch/dispatcher', '..')
       .should.equal('touch');
 
-    normalize('touch/dispatcher/foo.js', '..')
-      .should.equal('touch/dispatcher');
-
-    normalize('touch/dispatcher/foo.js', '../../')
+    normalize('touch/dispatcher/foo', '../../')
       .should.equal('touch');
   })
 })
