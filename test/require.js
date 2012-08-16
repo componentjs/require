@@ -105,7 +105,7 @@ describe('require.alias(from, to)', function(){
   it('should alias a module definition', function(){
     var js = fixture('alias.js');
     var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('bar');
+    ret.should.equal('abc');
   })
 })
 
