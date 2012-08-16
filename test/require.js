@@ -47,6 +47,11 @@ describe('require.register(name, fn)', function(){
     ret.should.equal('touch');
   })
 
+  it('should support relative require.register()', function(){
+    var js = fixture('define-relative.js');
+    eval(js + 'require("foo")', {}).should.equal('ab');
+  })
+
   it('should support index.js', function(){
     var js = fixture('index.js');
     var ret = eval(js + 'require("foo")', {});
@@ -83,28 +88,20 @@ describe('require.register(name, fn)', function(){
 
 describe('require.normalize(curr, path)', function(){
   it('should resolve foo', function(){
-    normalize('touch/dispatcher.js', 'foo')
+    normalize('touch/dispatcher', 'foo')
       .should.equal('foo');
   })
 
   it('should resolve ./foo', function(){
-    normalize('touch/dispatcher.js', './touch')
-      .should.equal('touch/touch');
-  })
-
-  it('should resolve ./foo when the parent is index.js', function(){
-    normalize('touch/index.js', './dispatcher')
-      .should.equal('touch/dispatcher');
+    normalize('touch/dispatcher', './touch')
+      .should.equal('touch/dispatcher/touch');
   })
 
   it('should resolve ..', function(){
-    normalize('touch/dispatcher.js', '..')
+    normalize('touch/dispatcher', '..')
       .should.equal('touch');
 
-    normalize('touch/dispatcher/foo.js', '..')
-      .should.equal('touch/dispatcher');
-
-    normalize('touch/dispatcher/foo.js', '../../')
+    normalize('touch/dispatcher/foo', '../../')
       .should.equal('touch');
   })
 })
@@ -113,7 +110,7 @@ describe('require.alias(from, to)', function(){
   it('should alias a module definition', function(){
     var js = fixture('alias.js');
     var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('bar');
+    ret.should.equal('abc');
   })
 })
 
