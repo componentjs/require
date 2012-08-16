@@ -47,6 +47,11 @@ describe('require.register(name, fn)', function(){
     ret.should.equal('touch');
   })
 
+  it('should support relative require.register()', function(){
+    var js = fixture('define-relative.js');
+    eval(js + 'require("foo")', {}).should.equal('ab');
+  })
+
   it('should support index.js', function(){
     var js = fixture('index.js');
     var ret = eval(js + 'require("foo")', {});
