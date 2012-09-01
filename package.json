@@ -1,6 +1,6 @@
 {
   "name": "component-require",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "require implementation for component(1)",
   "keywords": ["require", "component"],
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
