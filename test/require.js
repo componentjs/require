@@ -60,6 +60,12 @@ describe('require.register(name, fn)', function(){
     ret.should.equal('baz');
   })
 
+  it('should support ./deps when nested', function(){
+    var js = fixture('nested-dep-resolution.js');
+    var ret = eval(js + 'require("bar")', {});
+    ret.should.equal('foo');
+  })
+
   it('should report errors relative to the parent', function(done){
     try {
       var js = fixture('error.js');
