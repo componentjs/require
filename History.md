@@ -1,4 +1,10 @@
 
+0.0.3 / 2012-10-16 
+==================
+
+  * add `lastIndexOf` helper. Closes #9
+  * change this == root object. Closes #11
+
 0.0.2 / 2012-09-01 
 ==================
 
