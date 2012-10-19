@@ -113,6 +113,12 @@ describe('require.alias(from, to)', function(){
     var ret = eval(js + 'require("foo")', {});
     ret.should.equal('bar');
   })
+
+  it('should alias main files', function(){
+    var js = fixture('alias-main.js');
+    var ret = eval(js + 'require("foo")', {});
+    ret.should.equal('bar');
+  })
 })
 
 describe('require.exists(name)', function(){
