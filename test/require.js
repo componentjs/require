@@ -6,7 +6,8 @@
 var fs = require('fs')
   , vm = require('vm')
   , r = require('..')
-  , read = fs.readFileSync;
+  , read = fs.readFileSync
+  , should = require('should');
 
 function fixture(name) {
   return read('test/fixtures/' + name, 'utf8');
@@ -25,7 +26,7 @@ describe('require.register(name, fn)', function(){
   it('should define a module', function(){
     var js = fixture('define.js');
     var ret = eval(js + 'require("foo")', {});
-    ret.foo.should.equal('foo');
+    should.equal(ret.foo, 'foo');
   })
 
   it('should support module.exports', function(){
