@@ -73,7 +73,7 @@ describe('require.register(name, fn)', function(){
       var js = fixture('error.js');
       var ret = eval(js + 'require("foo")', {});
     } catch (err) {
-      err.message.should.equal('failed to require "./baz" from "foo/bar"');
+      err.message.should.equal('Failed to require "./baz" from "foo/bar"');
       done();
     }
   })
@@ -83,9 +83,16 @@ describe('require.register(name, fn)', function(){
       var js = fixture('deps-error.js');
       var ret = eval(js + 'require("foo")', {});
     } catch (err) {
-      err.message.should.equal('failed to require "doesnt-exist" from "foo/deps/bar"');
+      err.message.should.equal('Failed to require "doesnt-exist" from "foo/deps/bar"');
       done();
     }
+  })
+
+  it('should not be confused by prototypal inheritance', function() {
+    var js = fixture('prototypal-errors.js');
+    (function() { eval(js + 'require("constructor")', {}); }).should.throwError();
+    var ret = eval(js + 'require("toString")', {});
+    ret.stuff.should.equal(228);
   })
 })
 
