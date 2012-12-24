@@ -26,6 +26,7 @@ describe('require.register(name, fn)', function(){
   it('should define a module', function(){
     var js = fixture('define.js');
     var ret = eval(js + 'require("foo")', {});
+    console.log(ret)
     should.equal(ret.foo, 'foo');
   })
 
