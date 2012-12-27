@@ -6,7 +6,8 @@
 var fs = require('fs')
   , vm = require('vm')
   , r = require('..')
-  , read = fs.readFileSync;
+  , read = fs.readFileSync
+  , should = require('should');
 
 function fixture(name) {
   return read('test/fixtures/' + name, 'utf8');
@@ -25,7 +26,8 @@ describe('require.register(name, fn)', function(){
   it('should define a module', function(){
     var js = fixture('define.js');
     var ret = eval(js + 'require("foo")', {});
-    ret.foo.should.equal('foo');
+    console.log(ret)
+    should.equal(ret.foo, 'foo');
   })
 
   it('should support module.exports', function(){
@@ -71,7 +73,7 @@ describe('require.register(name, fn)', function(){
       var js = fixture('error.js');
       var ret = eval(js + 'require("foo")', {});
     } catch (err) {
-      err.message.should.equal('failed to require "./baz" from "foo/bar"');
+      err.message.should.equal('Failed to require "./baz" from "foo/bar"');
       done();
     }
   })
@@ -81,9 +83,16 @@ describe('require.register(name, fn)', function(){
       var js = fixture('deps-error.js');
       var ret = eval(js + 'require("foo")', {});
     } catch (err) {
-      err.message.should.equal('failed to require "doesnt-exist" from "foo/deps/bar"');
+      err.message.should.equal('Failed to require "doesnt-exist" from "foo/deps/bar"');
       done();
     }
+  })
+
+  it('should not be confused by prototypal inheritance', function() {
+    var js = fixture('prototypal-errors.js');
+    (function() { eval(js + 'require("constructor")', {}); }).should.throwError();
+    var ret = eval(js + 'require("toString")', {});
+    ret.stuff.should.equal(228);
   })
 })
 

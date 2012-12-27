@@ -1,5 +1,5 @@
 
-require.register('foo/bar.js', function(module, exports, require){
+require.register('foo/bar.js', function(exports, require, module){
   module.exports = 'foo';
 });
 

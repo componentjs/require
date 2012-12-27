@@ -1,11 +1,11 @@
-require.register('foo', function(module, exports, require){
+require.register('foo', function(exports, require, module){
   exports.foo = 'foo';
 });
 
-require.register('bar', function(module, exports, require){
+require.register('bar', function(exports, require, module){
   module.exports = 'bar';
 });
 
-require.register('baz', function(module, exports, require){
+require.register('baz', function(exports, require, module){
   module.exports = require('bar');
 });
