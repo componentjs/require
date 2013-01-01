@@ -94,6 +94,12 @@ describe('require.register(name, fn)', function(){
     var ret = eval(js + 'require("toString")', {});
     ret.stuff.should.equal(228);
   })
+
+  it('should support absolute paths', function() {
+    var js = fixture('absolute.js');
+    var ret = eval(js + 'require("meh")', {});
+    ret.should.equal('hi');
+  })
 })
 
 describe('require.normalize(curr, path)', function(){
