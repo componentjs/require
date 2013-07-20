@@ -176,7 +176,7 @@ describe('CommonJS environment', function(){
       ret.should.equal('function');
   });
 
-  xit('module should be of type object', function(){
+  it('module should be of type object', function(){
       var ret = variableType('module');
       ret.should.equal('object');
   });
