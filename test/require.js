@@ -159,26 +159,24 @@ describe('require.exists(name)', function(){
 })
 
 describe('CommonJS environment', function(){
-
   function variableType(name){
-      var js = fixture('typeof.js');
-      var ret = eval(js + 'require("typeof/' + name + '.js")', {});
-      return ret;
+    var js = fixture('typeof.js');
+    var ret = eval(js + 'require("typeof/' + name + '.js")', {});
+    return ret;
   }
 
   it('exports should be of type object', function(){
-      var ret = variableType('exports');
-      ret.should.equal('object');
+    var ret = variableType('exports');
+    ret.should.equal('object');
   });
 
   it('require should be of type function', function(){
-      var ret = variableType('require');
-      ret.should.equal('function');
+    var ret = variableType('require');
+    ret.should.equal('function');
   });
 
   it('module should be of type object', function(){
-      var ret = variableType('module');
-      ret.should.equal('object');
+    var ret = variableType('module');
+    ret.should.equal('object');
   });
-
 })
