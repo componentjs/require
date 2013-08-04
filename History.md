@@ -1,4 +1,9 @@
 
+0.3.0 / 2013-08-04 
+==================
+
+ * change typeof module from 'function' to 'require' to match Node.js implementation
+
 0.2.2 / 2013-06-02
 ==================
 
