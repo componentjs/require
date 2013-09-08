@@ -36,6 +36,14 @@ describe('require.register(name, fn)', function(){
     ret.should.equal('bar');
   })
 
+  it('should support exporting falsey values', function () {
+    var js = fixture('falsey.js');
+    var ret = eval(js + 'require("false")', {});
+    ret.should.equal(false);
+    var ret = eval(js + 'require("zero")', {});
+    ret.should.equal(0);
+  })
+
   it('should support nested require()s', function(){
     var js = fixture('nested.js');
     var ret = eval(js + 'require("foo")', {});
