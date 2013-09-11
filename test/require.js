@@ -100,6 +100,13 @@ describe('require.register(name, fn)', function(){
     var ret = eval(js + 'require("meh")', {});
     ret.should.equal('hi');
   })
+
+  it('should support circular dependencies', function(){
+    var js = fixture('circular.js');
+    var ret = eval(js + 'require("index")', {});
+    ret.foo.should.equal(1);
+    ret.bar.should.equal(1);
+  })
 })
 
 describe('require.normalize(curr, path)', function(){
