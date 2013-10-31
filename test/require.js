@@ -106,6 +106,13 @@ describe('require.register(name, fn)', function(){
     ret.foo.should.equal(1);
     ret.bar.should.equal(1);
   })
+
+  it('should always return the actual value of module.exports', function() {
+    var js = fixture('circular.js');
+    var ret = eval(js + 'require("index")', {});
+
+    ret.baz.should.equal(2);
+  });
 })
 
 describe('require.normalize(curr, path)', function(){
