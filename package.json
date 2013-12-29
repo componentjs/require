@@ -2,12 +2,19 @@
   "name": "component-require",
   "version": "1.0.0",
   "description": "require implementation for component(1)",
-  "keywords": ["require", "component"],
+  "keywords": [
+    "require",
+    "component"
+  ],
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
-  "main": "index"
+  "main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/component/require.git"
+  }
 }
