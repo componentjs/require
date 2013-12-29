@@ -1,10 +1,15 @@
 
-0.3.1 / 2013-09-12 
+1.0.0 / 2013-12-29
+==================
+
+ * remove alias support
+
+0.3.1 / 2013-09-12
 ==================
 
  * fix circular dependency issue
 
-0.3.0 / 2013-08-04 
+0.3.0 / 2013-08-04
 ==================
 
  * change typeof module from 'function' to 'require' to match Node.js implementation
