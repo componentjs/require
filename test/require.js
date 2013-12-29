@@ -56,34 +56,12 @@ describe('require.register(name, fn)', function(){
     ret.baz.should.equal('baz');
   })
 
-  it('should support ./deps', function(){
-    var js = fixture('deps.js');
-    var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('baz');
-  })
-
-  it('should support ./deps when nested', function(){
-    var js = fixture('nested-dep-resolution.js');
-    var ret = eval(js + 'require("bar")', {});
-    ret.should.equal('foo');
-  })
-
   it('should report errors relative to the parent', function(done){
     try {
       var js = fixture('error.js');
       var ret = eval(js + 'require("foo")', {});
     } catch (err) {
       err.message.should.equal('Failed to require "./baz" from "foo/bar"');
-      done();
-    }
-  })
-
-  it('should report dep errors relative to the parent', function(done){
-    try {
-      var js = fixture('deps-error.js');
-      var ret = eval(js + 'require("foo")', {});
-    } catch (err) {
-      err.message.should.equal('Failed to require "doesnt-exist" from "foo/deps/bar"');
       done();
     }
   })
@@ -129,39 +107,12 @@ describe('require.normalize(curr, path)', function(){
   })
 })
 
-describe('require.alias(from, to)', function(){
-  it('should alias a module definition', function(){
-    var js = fixture('alias.js');
-    var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('bar');
-  })
-
-  it('should support "main" for deps', function(){
-    var js = fixture('alias-main.js');
-    var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('bar');
-  })
-
-  it('should support "main"', function(){
-    var js = fixture('alias-main-boot.js');
-    var ret = eval(js + 'require("foo")', {});
-    ret.should.equal('foo');
-  })
-})
-
 describe('require.exists(name)', function(){
   it('should check if a module is defined', function(){
     var js = fixture('exists.js');
     var ret = eval(js + 'require("foo/bar")', {});
     ret.baz.should.be.true;
     ret.hey.should.be.false;
-  })
-
-  it('should work with ./deps', function(){
-    var js = fixture('deps-exists.js');
-    var ret = eval(js + 'require("foo")', {});
-    ret.doesntExist.should.be.false;
-    ret.baz.should.be.true;
   })
 })
 
